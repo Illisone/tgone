@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- SEO Meta -->
+    <title>Разработка ботов, сайтов и мини-приложений — STRATUM</title>
+    <meta name="description" content="Создаю Telegram-ботов, Mini Apps, корпоративные сайты и лендинги для бизнеса. Автоматизация, высокая конверсия, современный дизайн. Быстро, без бюрократии, с гарантией.">
+    <meta name="keywords" content="telegram бот под ключ, разработка mini apps, корпоративный сайт, лендинг под ключ, разработка сайтов, автоматизация бизнеса">
+    <meta name="author" content="STRATUM">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://stratum.studio">
+    <meta property="og:title" content="STRATUM — Боты, сайты и приложения для бизнеса">
+    <meta property="og:description" content="Telegram-разработка и веб-решения под ключ. Работаем со всеми направлениями цифровизации.">
+    <meta property="og:image" content="https://stratum.studio/og-image.jpg">
+    
+    <!-- Theme -->
+    <meta name="theme-color" content="#0a0a0f" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+    
+    <!-- Telegram WebApp -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+<base target="_blank">
+</head>
+<body>
+    <!-- Background -->
+    <div class="ambient-bg">
+        <div class="gradient-mesh"></div>
+        <div class="noise"></div>
+    </div>
+
+    <!-- Top Navigation -->
+    <nav class="nav-blur" id="nav" aria-hidden="true">
+        <button class="nav-back" onclick="app.goBack()" aria-label="Назад">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <span class="nav-title" id="nav-title">STRATUM</span>
+        <div class="nav-spacer"></div>
+    </nav>
+
+    <main class="app-container">
+        
+        <!-- HOME -->
+        <section id="home" class="section active" aria-label="Главная">
+            <div class="hero">
+                <div class="hero-badge">
+                    <span class="pulse-dot"></span>
+                    <span>Свободен для новых проектов</span>
+                </div>
+                <h1 class="hero-title">
+                    Цифровые решения
+                    <span class="title-accent">для бизнеса</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Telegram-боты, Mini Apps, корпоративные сайты и продающие лендинги. 
+                    Автоматизирую процессы, создаю инструменты для роста вашего бизнеса.
+                </p>
+            </div>
+
+            <!-- Flagship Services -->
+            <div class="flagship-services">
+                <div class="flagship-card" onclick="app.showSection('calc')">
+                    <div class="flagship-icon bot">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <span class="flagship-label">Боты</span>
+                </div>
+                <div class="flagship-card" onclick="app.showSection('calc')">
+                    <div class="flagship-icon miniapp">
+                        <i class="fas fa-mobile-screen"></i>
+                    </div>
+                    <span class="flagship-label">Mini Apps</span>
+                </div>
+                <div class="flagship-card" onclick="app.showSection('calc')">
+                    <div class="flagship-icon web">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <span class="flagship-label">Сайты</span>
+                </div>
+            </div>
+
+            <div class="value-grid">
+                <div class="value-card" onclick="app.showFeatureDetail('speed')">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Запуск за 5 дней</h3>
+                    <p>Первый рабочий вариант быстро</p>
+                </div>
+                <div class="value-card" onclick="app.showFeatureDetail('conversion')">
+                    <div class="value-icon" style="--hue: 260">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Фокус на конверсии</h3>
+                    <p>Дизайн продает, а не просто красивый</p>
+                </div>
+                <div class="value-card" onclick="app.showFeatureDetail('stack')">
+                    <div class="value-icon" style="--hue: 150">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Полный цикл</h3>
+                    <p>От идеи до размещения на сервере</p>
+                </div>
+            </div>
+
+            <div class="proof-bar">
+                <div class="proof-item">
+                    <span class="proof-number" data-target="47">0</span>
+                    <span class="proof-label">Запущенных проектов</span>
+                </div>
+                <div class="proof-divider"></div>
+                <div class="proof-item">
+                    <span class="proof-number" data-target="98">0</span>
+                    <span class="proof-label">% довольных клиентов</span>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <button class="btn btn-primary" onclick="app.showSection('calc')">
+                    <span class="btn-shine"></span>
+                    <span class="btn-text">Рассчитать стоимость</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn btn-secondary" onclick="app.showSection('portfolio')">
+                    <span class="btn-text">Посмотреть кейсы</span>
+                    <i class="fas fa-folder-open"></i>
+                </button>
+            </div>
+
+            <div class="trust-row">
+                <div class="trust-item">
+                    <i class="fas fa-lock"></i>
+                    <span>NDA по запросу</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-file-code"></i>
+                    <span>Исходный код</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-headset"></i>
+                    <span>Поддержка 24/7</span>
+                </div>
+            </div>
+
+            <button class="about-toggle" onclick="app.toggleAbout()">
+                <span>О разработчике</span>
+                <i class="fas fa-chevron-down" id="about-chevron"></i>
+            </button>
+
+            <div class="about-card" id="about-card" style="display: none;">
+                <div class="about-header">
+                    <div class="avatar"><span>DS</span></div>
+                    <div class="about-titles">
+                        <h3>Дмитрий С.</h3>
+                        <span>Full-stack Developer</span>
+                    </div>
+                </div>
+                <div class="about-badges">
+                    <span class="badge"><i class="fas fa-code"></i> 5+ лет опыта</span>
+                    <span class="badge"><i class="fas fa-robot"></i> aiogram 3.x</span>
+                </div>
+                <p class="about-text">
+                    Специализируюсь на комплексных решениях: Telegram-боты с FSM, 
+                    интеграция с CRM/ERP, платежные системы, корпоративные сайты и лендинги с высокой конверсией.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech">Python</span>
+                    <span class="tech">FastAPI</span>
+                    <span class="tech">PostgreSQL</span>
+                    <span class="tech">Redis</span>
+                    <span class="tech">React</span>
+                    <span class="tech">Next.js</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO -->
+        <section id="portfolio" class="section" aria-label="Наши работы">
+            <header class="section-header">
+                <span class="section-eyebrow">Уже работают</span>
+                <h2 class="section-title">Что сделали</h2>
+                <p class="section-subtitle">Реальные проекты с конкретными результатами</p>
+            </header>
+
+            <div class="portfolio-list">
+                <article class="portfolio-item stagger-item" onclick="app.haptic('medium')">
+                    <div class="portfolio-visual" style="--accent: #007AFF;">
+                        <div class="portfolio-icon"><i class="fas fa-calendar-check"></i></div>
+                    </div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-tag">Запись клиентов</span>
+                        <h3>Салон красоты BeautyPro</h3>
+                        <p>Клиенты записываются сами 24/7 через бота. Интеграция с Google Calendar и SMS-напоминания.</p>
+                        <div class="portfolio-result">
+                            <i class="fas fa-arrow-trend-up"></i>
+                            <span>Записей стало больше на 40%</span>
+                        </div>
+                        <div class="portfolio-meta">
+                            <span><i class="fas fa-clock"></i> 36 часов</span>
+                            <span><i class="fas fa-ruble-sign"></i> от 15 000 ₽</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="portfolio-item stagger-item" onclick="app.haptic('medium')">
+                    <div class="portfolio-visual" style="--accent: #FF3B30;">
+                        <div class="portfolio-icon"><i class="fas fa-bag-shopping"></i></div>
+                    </div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-tag" style="--tag-bg: rgba(255, 59, 48, 0.1); --tag-color: #FF3B30;">Магазин в Telegram</span>
+                        <h3>Магазин одежды StyleShop</h3>
+                        <p>Полноценный магазин прямо в мессенджере. Каталог, корзина, оплата картой — всё в пару касаний.</p>
+                        <div class="portfolio-result">
+                            <i class="fas fa-percentage"></i>
+                            <span>Каждый 9-й посетитель покупает</span>
+                        </div>
+                        <div class="portfolio-meta">
+                            <span><i class="fas fa-clock"></i> 5 дней</span>
+                            <span><i class="fas fa-ruble-sign"></i> от 45 000 ₽</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="portfolio-item stagger-item" onclick="app.haptic('medium')">
+                    <div class="portfolio-visual" style="--accent: #AF52DE;">
+                        <div class="portfolio-icon"><i class="fas fa-building"></i></div>
+                    </div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-tag" style="--tag-bg: rgba(175, 82, 222, 0.1); --tag-color: #AF52DE;">Корпоративный сайт</span>
+                        <h3>Логистическая компания CargoX</h3>
+                        <p>Сложный многостраничный сайт с калькулятором доставки, личным кабинетом и интеграцией с API транспортных компаний.</p>
+                        <div class="portfolio-result">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Конверсия в заявку выросла на 180%</span>
+                        </div>
+                        <div class="portfolio-meta">
+                            <span><i class="fas fa-clock"></i> 12 дней</span>
+                            <span><i class="fas fa-ruble-sign"></i> от 65 000 ₽</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="portfolio-item stagger-item" onclick="app.haptic('medium')">
+                    <div class="portfolio-visual" style="--accent: #34C759;">
+                        <div class="portfolio-icon"><i class="fas fa-bullhorn"></i></div>
+                    </div>
+                    <div class="portfolio-content">
+                        <span class="portfolio-tag" style="--tag-bg: rgba(52, 199, 89, 0.1); --tag-color: #34C759;">Лендинг</span>
+                        <h3>Курс по нейросетям AI-Master</h3>
+                        <p>Продающая страница с анимациями, таймером обратного отсчета и интеграцией платежной системы.</p>
+                        <div class="portfolio-result">
+                            <i class="fas fa-users"></i>
+                            <span>340 продаж за первый месяц</span>
+                        </div>
+                        <div class="portfolio-meta">
+                            <span><i class="fas fa-clock"></i> 4 дня</span>
+                            <span><i class="fas fa-ruble-sign"></i> от 35 000 ₽</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="portfolio-cta">
+                <button class="btn btn-primary" onclick="app.showSection('calc')">
+                    <span class="btn-text">Обсудить ваш проект</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- CALCULATOR -->
+        <section id="calc" class="section" aria-label="Калькулятор">
+            <header class="section-header">
+                <div class="step-indicator">
+                    <div class="step-dot active" data-step="1"></div>
+                    <div class="step-line"></div>
+                    <div class="step-dot" data-step="2"></div>
+                    <div class="step-line"></div>
+                    <div class="step-dot" data-step="3"></div>
+                </div>
+                <h2 class="section-title" id="calc-title">Что разработать?</h2>
+            </header>
+
+            <div id="step-1" class="calc-step active">
+                <div class="options-list">
+                    <button class="option-card" onclick="app.selectService('bot', 8000, 'Telegram-бот')">
+                        <div class="option-icon"><i class="fas fa-robot"></i></div>
+                        <div class="option-info">
+                            <h4>Telegram-бот</h4>
+                            <p>Автоматизация, продажи, поддержка</p>
+                        </div>
+                        <div class="option-price">от 8 000 ₽</div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </button>
+                    <button class="option-card" onclick="app.selectService('miniapp', 25000, 'Mini App')">
+                        <div class="option-icon" style="--hue: 260;"><i class="fas fa-mobile-screen"></i></div>
+                        <div class="option-info">
+                            <h4>Mini App</h4>
+                            <p>Полноценное приложение в Telegram</p>
+                        </div>
+                        <div class="option-price">от 25 000 ₽</div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </button>
+                    <button class="option-card" onclick="app.selectService('corp-site', 45000, 'Корпоративный сайт')">
+                        <div class="option-icon" style="--hue: 300;"><i class="fas fa-building"></i></div>
+                        <div class="option-info">
+                            <h4>Корпоративный сайт</h4>
+                            <p>Многостраничник с админкой</p>
+                        </div>
+                        <div class="option-price">от 45 000 ₽</div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </button>
+                    <button class="option-card" onclick="app.selectService('landing', 25000, 'Лендинг')">
+                        <div class="option-icon" style="--hue: 150;"><i class="fas fa-bullhorn"></i></div>
+                        <div class="option-info">
+                            <h4>Лендинг / Сайт-визитка</h4>
+                            <p>Продающая страница под ключ</p>
+                        </div>
+                        <div class="option-price">от 25 000 ₽</div>
+                        <div class="option-check"><i class="fas fa-check"></i></div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ORDER -->
+        <section id="order" class="section" aria-label="Оформить заказ">
+            <header class="section-header">
+                <span class="section-eyebrow">Последний шаг</span>
+                <h2 class="section-title">Расскажите о задаче</h2>
+                <p class="section-subtitle">Отвечу в течение часа</p>
+            </header>
+
+            <div class="order-summary compact">
+                <div class="order-service" id="order-service">Telegram-бот</div>
+                <div class="order-price" id="order-price">8 000 ₽</div>
+            </div>
+
+            <form class="order-form simplified" onsubmit="app.submitOrder(event)">
+                <div class="form-group">
+                    <label class="form-label">Что нужно сделать? <span class="required">*</span></label>
+                    <textarea class="form-input" placeholder="Например: Нужен бот для записи клиентов в барбершоп. Чтобы выбирали мастера, дату и время. Интеграция с Google Calendar." required minlength="20" rows="3"></textarea>
+                    <span class="form-hint">Чем подробнее — тем точнее оценка</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Куда написать? <span class="required">*</span></label>
+                    <div class="input-with-icon">
+                        <i class="fab fa-telegram"></i>
+                        <input type="text" class="form-input" placeholder="@username или телефон" required>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <span class="btn-shine"></span>
+                        <span class="btn-text">Отправить заявку</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <button type="button" class="btn btn-text" onclick="app.showSection('calc')">
+                        <i class="fas fa-arrow-left"></i> Вернуться к цене
+                    </button>
+                </div>
+                <p class="form-note"><i class="fas fa-lock"></i> Данные передаются по защищенному соединению</p>
+            </form>
+        </section>
+
+        <!-- SUCCESS -->
+        <section id="success" class="section" aria-label="Успешно">
+            <div class="success-container">
+                <div class="success-animation">
+                    <div class="success-circle"><i class="fas fa-check"></i></div>
+                    <div class="success-rings">
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                        <div class="ring"></div>
+                    </div>
+                </div>
+                <h2 class="success-title">Заявка отправлена!</h2>
+                <p class="success-text">Свяжусь с вами в течение часа для обсуждения деталей</p>
+                <div class="success-actions">
+                    <button class="btn btn-secondary" onclick="app.showSection('home')">
+                        <i class="fas fa-home"></i> На главную
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM TAB BAR - Liquid Glass Style -->
+    <nav class="tab-bar" id="tabBar" role="tablist">
+        <button class="tab-item active" onclick="app.switchTab('home')" role="tab" aria-selected="true">
+            <div class="tab-icon">
+                <i class="fas fa-house"></i>
+            </div>
+            <span class="tab-label">Главная</span>
+        </button>
+        <button class="tab-item" onclick="app.switchTab('portfolio')" role="tab" aria-selected="false">
+            <div class="tab-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <span class="tab-label">Кейсы</span>
+        </button>
+        <button class="tab-item" onclick="app.switchTab('calc')" role="tab" aria-selected="false">
+            <div class="tab-icon">
+                <i class="fas fa-calculator"></i>
+            </div>
+            <span class="tab-label">Цена</span>
+        </button>
+        <button class="tab-item" onclick="app.switchTab('order')" role="tab" aria-selected="false">
+            <div class="tab-icon">
+                <i class="fas fa-paper-plane"></i>
+            </div>
+            <span class="tab-label">Заказ</span>
+        </button>
+    </nav>
+
+    <script src="app.js"></script>
+</body>
+</html>
