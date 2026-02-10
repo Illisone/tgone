@@ -1,23 +1,37 @@
 /**
- * STRATUM — Telegram Mini App
- * Digital Studio for Bots, Mini Apps & Web Development
- * Liquid Glass Design Edition
+ * STRATUM V3 — Soft UI Edition
+ * Telegram Mini App с системой FAQ, тултипами и магнитными кнопками
  */
 
 const app = {
     currentSection: 'home',
     history: [],
     selectedService: null,
+    faqOpen: false,
+    conversionCardOpen: null,
     
+    // Глоссарий IT-терминов
+    glossary: {
+        'API': 'Application Programming Interface — набор правил, позволяющий разным программам обмениваться данными между собой',
+        'CRM': 'Customer Relationship Management — система для управления взаимоотношениями с клиентами и автоматизации продаж',
+        'ERP': 'Enterprise Resource Planning — система планирования ресурсов предприятия (бухгалтерия, склад, персонал)',
+        'FSM': 'Finite State Machine — конечный автомат, помогает боту помнить, на каком шаге диалога находится пользователь',
+        'MVP': 'Minimum Viable Product — минимально жизнеспособный продукт с базовыми функциями для быстрого запуска',
+        'Mini Apps': 'Мини-приложения прямо внутри Telegram, работают без установки как обычные сайты',
+        'USDT': 'Криптовалютный стейблкоин, привязанный к доллару США (1 USDT ≈ 1 USD), удобен для международных переводов'
+    },
+
     /**
      * Initialize the app
      */
     init() {
         this.setupTelegramWebApp();
         this.setupEventListeners();
+        this.setupTooltips();
+        this.setupMagneticButtons();
         this.animateNumbers();
     },
-    
+
     /**
      * Setup Telegram WebApp integration
      */
@@ -33,9 +47,9 @@ const app = {
         tg.ready();
         tg.enableClosingConfirmation();
         
-        // Set colors - dark liquid glass theme
-        tg.setHeaderColor('#0a0a0f');
-        tg.setBackgroundColor('#0a0a0f');
+        // Set colors - Soft UI light theme
+        tg.setHeaderColor('#F5F5F7');
+        tg.setBackgroundColor('#F5F5F7');
         
         // Expand to full height
         tg.expand();
@@ -52,20 +66,44 @@ const app = {
             }
         });
     },
-    
+
     /**
-     * Haptic feedback helper
+     * Haptic feedback helper с усиленными вибрациями
      */
     haptic(style = 'light') {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             try {
-                Telegram.WebApp.HapticFeedback.impactOccurred(style);
+                // Усиленная обратная связь для Soft UI
+                const feedback = Telegram.WebApp.HapticFeedback;
+                
+                switch(style) {
+                    case 'light':
+                        feedback.impactOccurred('light');
+                        break;
+                    case 'medium':
+                        feedback.impactOccurred('medium');
+                        break;
+                    case 'heavy':
+                        feedback.impactOccurred('heavy');
+                        break;
+                    case 'success':
+                        feedback.notificationOccurred('success');
+                        break;
+                    case 'error':
+                        feedback.notificationOccurred('error');
+                        break;
+                    case 'warning':
+                        feedback.notificationOccurred('warning');
+                        break;
+                    default:
+                        feedback.impactOccurred(style);
+                }
             } catch (e) {
                 // Ignore errors
             }
         }
     },
-    
+
     /**
      * Setup global event listeners
      */
@@ -88,8 +126,154 @@ const app = {
                 }
             });
         }
+
+        // Закрытие тултипа по клику вне его
+        document.getElementById('tooltipContainer').addEventListener('click', (e) => {
+            if (e.target.id === 'tooltipContainer') {
+                this.hideTooltip();
+            }
+        });
     },
-    
+
+    /**
+     * Setup tooltip system для IT-терминов
+     */
+    setupTooltips() {
+        document.querySelectorAll('.term-highlight').forEach(term => {
+            term.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const termText = term.getAttribute('data-term');
+                const definition = term.getAttribute('data-def') || this.glossary[termText] || 'Определение скоро появится...';
+                this.showTooltip(termText, definition);
+            });
+        });
+    },
+
+    /**
+     * Show tooltip
+     */
+    showTooltip(term, definition) {
+        this.haptic('light');
+        
+        const container = document.getElementById('tooltipContainer');
+        document.getElementById('tooltipTerm').textContent = term;
+        document.getElementById('tooltipDefinition').textContent = definition;
+        
+        container.classList.add('visible');
+    },
+
+    /**
+     * Hide tooltip
+     */
+    hideTooltip() {
+        const container = document.getElementById('tooltipContainer');
+        container.classList.remove('visible');
+    },
+
+    /**
+     * Setup magnetic buttons effect
+     */
+    setupMagneticButtons() {
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+        if (isTouchDevice) return; // Отключаем на тач-устройствах
+
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                // Магнитный эффект - кнопка слегка притягивается к курсору
+                const distance = Math.sqrt(x * x + y * y);
+                const maxDistance = 20;
+                
+                if (distance < maxDistance) {
+                    const strength = (maxDistance - distance) / maxDistance;
+                    btn.style.transform = `translate(${x * strength * 0.3}px, ${y * strength * 0.3}px)`;
+                }
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = '';
+            });
+        });
+    },
+
+    /**
+     * Toggle FAQ accordion с эффектом стопки листов
+     */
+    toggleFaq(button) {
+        this.haptic('medium');
+        
+        const faqItem = button.parentElement;
+        const answer = faqItem.querySelector('.faq-answer');
+        const isOpen = faqItem.classList.contains('open');
+        
+        // Закрываем все остальные FAQ для эффекта "стопки"
+        document.querySelectorAll('.faq-item.open').forEach(item => {
+            if (item !== faqItem) {
+                item.classList.remove('open');
+                item.querySelector('.faq-answer').style.maxHeight = null;
+            }
+        });
+        
+        if (isOpen) {
+            faqItem.classList.remove('open');
+            answer.style.maxHeight = null;
+        } else {
+            faqItem.classList.add('open');
+            answer.style.maxHeight = answer.scrollHeight + 'px';
+            
+            // Эффект "разъезжания" соседних элементов
+            const siblings = Array.from(faqItem.parentElement.children);
+            const index = siblings.indexOf(faqItem);
+            
+            siblings.forEach((sibling, i) => {
+                if (i !== index) {
+                    sibling.style.transform = i < index ? 'translateY(-2px)' : 'translateY(2px)';
+                    setTimeout(() => {
+                        sibling.style.transform = '';
+                    }, 300);
+                }
+            });
+        }
+    },
+
+    /**
+     * Toggle conversion card (раскрывающиеся карточки услуг)
+     */
+    toggleConversionCard(header) {
+        this.haptic('medium');
+        
+        const card = header.parentElement;
+        const body = card.querySelector('.conversion-body');
+        const isOpen = card.classList.contains('open');
+        
+        // Закрываем предыдущую открытую карточку
+        if (this.conversionCardOpen && this.conversionCardOpen !== card) {
+            this.conversionCardOpen.classList.remove('open');
+            this.conversionCardOpen.querySelector('.conversion-body').style.maxHeight = null;
+        }
+        
+        if (isOpen) {
+            card.classList.remove('open');
+            body.style.maxHeight = null;
+            this.conversionCardOpen = null;
+        } else {
+            card.classList.add('open');
+            body.style.maxHeight = body.scrollHeight + 'px';
+            this.conversionCardOpen = card;
+            
+            // Scroll to card if needed
+            setTimeout(() => {
+                const rect = card.getBoundingClientRect();
+                if (rect.bottom > window.innerHeight - 100) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+        }
+    },
+
     /**
      * Switch tab from bottom navigation
      */
@@ -106,10 +290,10 @@ const app = {
         clickedTab.classList.add('active');
         clickedTab.setAttribute('aria-selected', 'true');
         
-        // Show section without adding to history (tab switching is flat navigation)
+        // Show section without adding to history
         this.showSection(sectionId, false);
     },
-    
+
     /**
      * Main navigation method
      */
@@ -126,7 +310,7 @@ const app = {
             this.history.push(this.currentSection);
         }
         
-        // Hide all sections with performance optimization
+        // Hide all sections
         const sections = document.querySelectorAll('.section');
         sections.forEach(section => {
             if (section.classList.contains('active')) {
@@ -161,7 +345,7 @@ const app = {
             this.haptic('soft');
         }
     },
-    
+
     /**
      * Navigate back in history
      */
@@ -169,7 +353,6 @@ const app = {
         this.haptic('light');
         
         if (this.history.length === 0) {
-            // If no history, go to home
             this.showSection('home', false);
             return;
         }
@@ -177,7 +360,7 @@ const app = {
         const previousSection = this.history.pop();
         this.showSection(previousSection, false);
     },
-    
+
     /**
      * Update top navigation visibility and title
      */
@@ -194,7 +377,7 @@ const app = {
             navTitle.textContent = this.getSectionTitle(sectionId);
         }
     },
-    
+
     /**
      * Get human-readable section title for navbar
      */
@@ -208,7 +391,7 @@ const app = {
         };
         return titles[sectionId] || 'STRATUM';
     },
-    
+
     /**
      * Update bottom tab bar active state
      */
@@ -229,7 +412,7 @@ const app = {
             tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
         });
     },
-    
+
     /**
      * Animate numbers in statistics block
      */
@@ -254,7 +437,7 @@ const app = {
         
         numbers.forEach(num => observer.observe(num));
     },
-    
+
     /**
      * Count up animation for numbers
      */
@@ -282,23 +465,24 @@ const app = {
         
         requestAnimationFrame(updateCount);
     },
-    
+
     /**
      * Handle service selection in calculator
      */
     selectService(id, price, name) {
-        this.haptic('medium');
+        this.haptic('success');
         
         // Store selection
         this.selectedService = { id, price, name };
         
         // Update UI to show selection
-        document.querySelectorAll('.option-card').forEach(card => {
+        document.querySelectorAll('.conversion-card').forEach(card => {
             card.classList.remove('selected');
         });
         
         if (event.currentTarget) {
-            event.currentTarget.classList.add('selected');
+            const card = event.currentTarget.closest('.conversion-card');
+            if (card) card.classList.add('selected');
         }
         
         // Small delay for visual feedback
@@ -320,7 +504,7 @@ const app = {
             }, 350);
         }, 200);
     },
-    
+
     /**
      * Handle order form submission
      */
@@ -336,12 +520,14 @@ const app = {
         if (!textarea.value.trim() || textarea.value.length < 20) {
             this.showNotification('Опишите задачу подробнее (минимум 20 символов)');
             textarea.focus();
+            this.haptic('error');
             return;
         }
         
         if (!contactInput.value.trim()) {
             this.showNotification('Укажите контакт для связи');
             contactInput.focus();
+            this.haptic('error');
             return;
         }
         
@@ -362,7 +548,7 @@ const app = {
             
             // Clear selection
             this.selectedService = null;
-            document.querySelectorAll('.option-card').forEach(card => {
+            document.querySelectorAll('.conversion-card').forEach(card => {
                 card.classList.remove('selected');
             });
             
@@ -379,7 +565,7 @@ const app = {
             }
         }, 1500);
     },
-    
+
     /**
      * Toggle about/developer card visibility
      */
@@ -406,16 +592,15 @@ const app = {
             }, 100);
         }
     },
-    
+
     /**
      * Show feature detail (placeholder for future expansion)
      */
     showFeatureDetail(feature) {
         this.haptic('medium');
-        // Future implementation for detailed feature views
         console.log('Feature detail:', feature);
     },
-    
+
     /**
      * Show notification toast
      */
@@ -432,27 +617,27 @@ const app = {
             <span>${message}</span>
         `;
         
-        // Styles
+        // Styles - Soft UI version
         notification.style.cssText = `
             position: fixed;
             top: 70px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 69, 58, 0.95);
+            background: rgba(255, 59, 48, 0.95);
             color: white;
             padding: 12px 20px;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 14px;
             font-weight: 500;
             display: flex;
             align-items: center;
             gap: 8px;
             z-index: 10000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             animation: slideDown 0.3s ease;
             max-width: 90%;
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         `;
         
         document.body.appendChild(notification);
