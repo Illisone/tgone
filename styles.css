@@ -96,11 +96,11 @@
     --blur-md: blur(20px) saturate(180%);
     --blur-lg: blur(40px) saturate(200%);
     
-    /* Radius — Soft and Organic */
-    --radius-sm: 10px;
-    --radius-md: 14px;
-    --radius-lg: 20px;
-    --radius-xl: 28px;
+    /* Radius — ОБНОВЛЕННЫЕ для более компактного вида */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 14px;      /* Было 20px, стало 14px для кнопок */
+    --radius-xl: 20px;      /* Для карточек оставляем 20px */
     --radius-full: 9999px;
     
     /* Typography */
@@ -456,58 +456,13 @@ body {
 }
 
 /* ============================================
-   HERO SECTION
+   HERO SECTION (без плашки "Свободен")
    ============================================ */
 
 .hero {
     margin-bottom: var(--space-8);
     text-align: center;
-    padding-top: var(--space-4);
-}
-
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--accent-green);
-    margin-bottom: var(--space-6);
-    padding: var(--space-2) var(--space-4);
-    background: rgba(52, 199, 89, 0.1);
-    border-radius: var(--radius-full);
-    border: 1px solid rgba(52, 199, 89, 0.2);
-    box-shadow: var(--shadow-sm);
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.hero-badge:hover {
-    background: rgba(52, 199, 89, 0.15);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-}
-
-.pulse-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--accent-green);
-    border-radius: 50%;
-    position: relative;
-}
-
-.pulse-dot::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border: 1.5px solid var(--accent-green);
-    border-radius: 50%;
-    animation: pulseRing 2s ease-out infinite;
-}
-
-@keyframes pulseRing {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(2.5); opacity: 0; }
+    padding-top: var(--space-6);
 }
 
 .hero-title {
@@ -551,7 +506,7 @@ body {
 .flagship-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl); /* Карточки остаются с 20px */
     padding: var(--space-5) var(--space-3);
     text-align: center;
     cursor: pointer;
@@ -645,7 +600,7 @@ body {
 .value-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     padding: var(--space-4) var(--space-3);
     text-align: center;
     cursor: pointer;
@@ -779,7 +734,7 @@ body {
 }
 
 /* ============================================
-   BUTTONS — Magnetic & Soft
+   BUTTONS — Magnetic & Soft (ОБНОВЛЕННОЕ СКРУГЛЕНИЕ)
    ============================================ */
 
 .btn {
@@ -789,7 +744,7 @@ body {
     justify-content: center;
     gap: var(--space-2);
     padding: 16px var(--space-6);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-lg); /* Теперь 14px вместо 20px */
     font-size: 16px;
     font-weight: 600;
     border: none;
@@ -808,19 +763,24 @@ body {
 }
 
 .btn-primary {
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, #0071E3 0%, #47A9FF 50%, #0071E3 100%);
+    background-size: 200% 100%;
     color: white;
     box-shadow: 
         0 4px 16px rgba(0, 113, 227, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s var(--ease-spring), background-position 0.5s;
 }
 
 .btn-primary:hover {
+    background-position: 100% 0;
     transform: translateY(-2px) scale(1.02);
     box-shadow: 
         0 8px 24px rgba(0, 113, 227, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
 .btn-primary:active {
@@ -880,12 +840,14 @@ body {
 .btn-large {
     padding: 18px var(--space-8);
     font-size: 17px;
+    border-radius: var(--radius-lg);
 }
 
 .btn-small {
     padding: 12px var(--space-5);
     font-size: 14px;
     min-height: 44px;
+    border-radius: var(--radius-md);
 }
 
 /* ============================================
@@ -916,7 +878,7 @@ body {
 }
 
 /* ============================================
-   FAQ ACCORDION — Stack of Sheets
+   FAQ ACCORDION — ПЛЮС ВМЕСТО СТРЕЛКИ
    ============================================ */
 
 .faq-section {
@@ -941,16 +903,18 @@ body {
 .faq-item {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     overflow: hidden;
     backdrop-filter: var(--blur-sm);
     box-shadow: var(--shadow-sm);
-    transition: all 0.3s var(--ease-spring);
+    transition: all 0.4s var(--ease-spring);
+    position: relative;
 }
 
 .faq-item:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-1px);
+    z-index: 2;
 }
 
 .faq-question {
@@ -975,15 +939,62 @@ body {
     background: rgba(0, 0, 0, 0.02);
 }
 
-.faq-chevron {
+/* ИКОНКА ПЛЮС — CSS-реализация */
+.faq-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-full);
+    background: rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--text-tertiary);
-    font-size: 14px;
-    transition: transform 0.3s var(--ease-spring);
+    position: relative;
+    transition: all 0.3s var(--ease-spring);
+    flex-shrink: 0;
 }
 
-.faq-item.open .faq-chevron {
-    transform: rotate(180deg);
-    color: var(--accent-blue);
+/* Горизонтальная полоса */
+.faq-icon::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: all 0.3s var(--ease-spring);
+}
+
+/* Вертикальная полоса */
+.faq-icon::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: all 0.3s var(--ease-spring);
+    transform: scaleY(1);
+}
+
+/* Когда открыто — плюс превращается в крест с поворотом */
+.faq-item.open .faq-icon {
+    background: var(--accent-blue);
+    color: white;
+    transform: rotate(45deg);
+}
+
+.faq-item.open .faq-icon::before,
+.faq-item.open .faq-icon::after {
+    background: white;
+}
+
+/* Эффект "разъезжания" соседних карточек */
+.faq-item.open {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-hover);
+    z-index: 3;
+    transform: scale(1.01);
 }
 
 .faq-answer {
@@ -1009,7 +1020,7 @@ body {
 }
 
 /* ============================================
-   ABOUT SECTION
+   ABOUT SECTION — тоже с плюсом
    ============================================ */
 
 .about-toggle {
@@ -1020,7 +1031,7 @@ body {
     padding: var(--space-4) var(--space-6);
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     color: var(--text-secondary);
     font-size: 15px;
     font-weight: 600;
@@ -1045,9 +1056,41 @@ body {
     box-shadow: var(--shadow-inner);
 }
 
-.about-toggle i {
-    transition: transform 0.3s var(--ease-spring);
+/* Плюс для about-toggle */
+.toggle-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--text-tertiary);
+    transition: all 0.3s var(--ease-spring);
+}
+
+.toggle-icon::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: all 0.3s var(--ease-spring);
+}
+
+.toggle-icon::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: all 0.3s var(--ease-spring);
+}
+
+.about-toggle.active .toggle-icon {
+    transform: rotate(45deg);
+    color: var(--accent-blue);
 }
 
 .about-card {
@@ -1300,7 +1343,7 @@ body {
 }
 
 /* ============================================
-   CONVERSION CARDS — Expandable Services
+   CONVERSION CARDS — ПЛЮС ВМЕСТО СТРЕЛКИ
    ============================================ */
 
 .step-indicator {
@@ -1414,22 +1457,48 @@ body {
     color: var(--accent-green);
 }
 
+/* ПЛЮС ДЛЯ КОНВЕРСИОННЫХ КАРТОЧЕК */
 .conversion-expand {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: var(--radius-full);
     background: rgba(0, 0, 0, 0.04);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-tertiary);
+    position: relative;
+    transition: all 0.3s var(--ease-spring);
+    flex-shrink: 0;
+}
+
+/* Горизонтальная полоса */
+.conversion-expand::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
     transition: all 0.3s var(--ease-spring);
 }
 
+/* Вертикальная полоса */
+.conversion-expand::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: all 0.3s var(--ease-spring);
+}
+
+/* При открытии — крестик с поворотом */
 .conversion-card.open .conversion-expand {
-    transform: rotate(45deg);
     background: var(--accent-blue);
     color: white;
+    transform: rotate(45deg);
 }
 
 .conversion-body {
@@ -1489,7 +1558,7 @@ body {
     margin-bottom: var(--space-5);
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     backdrop-filter: var(--blur-sm);
     box-shadow: var(--shadow-inner);
 }

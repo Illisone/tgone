@@ -1,6 +1,6 @@
 /**
  * STRATUM V3 — Soft UI Edition
- * Telegram Mini App с системой FAQ, тултипами и магнитными кнопками
+ * Telegram Mini App с FAQ-плюсами, тултипами и магнитными кнопками
  */
 
 const app = {
@@ -73,7 +73,6 @@ const app = {
     haptic(style = 'light') {
         if (window.Telegram?.WebApp?.HapticFeedback) {
             try {
-                // Усиленная обратная связь для Soft UI
                 const feedback = Telegram.WebApp.HapticFeedback;
                 
                 switch(style) {
@@ -200,7 +199,7 @@ const app = {
     },
 
     /**
-     * Toggle FAQ accordion с эффектом стопки листов
+     * Toggle FAQ accordion с ПЛЮСОМ вместо стрелки
      */
     toggleFaq(button) {
         this.haptic('medium');
@@ -224,23 +223,27 @@ const app = {
             faqItem.classList.add('open');
             answer.style.maxHeight = answer.scrollHeight + 'px';
             
-            // Эффект "разъезжания" соседних элементов
+            // Эффект "разъезжания" соседних элементов усилен
             const siblings = Array.from(faqItem.parentElement.children);
             const index = siblings.indexOf(faqItem);
             
             siblings.forEach((sibling, i) => {
                 if (i !== index) {
-                    sibling.style.transform = i < index ? 'translateY(-2px)' : 'translateY(2px)';
+                    const offset = (i < index) ? -3 : 3;
+                    sibling.style.transform = `translateY(${offset}px) scale(0.98)`;
+                    sibling.style.opacity = '0.7';
+                    
                     setTimeout(() => {
                         sibling.style.transform = '';
-                    }, 300);
+                        sibling.style.opacity = '';
+                    }, 400);
                 }
             });
         }
     },
 
     /**
-     * Toggle conversion card (раскрывающиеся карточки услуг)
+     * Toggle conversion card (раскрывающиеся карточки услуг) с ПЛЮСОМ
      */
     toggleConversionCard(header) {
         this.haptic('medium');
@@ -567,24 +570,24 @@ const app = {
     },
 
     /**
-     * Toggle about/developer card visibility
+     * Toggle about/developer card visibility с ПЛЮСОМ
      */
     toggleAbout() {
         this.haptic('light');
         
         const aboutCard = document.getElementById('about-card');
-        const chevron = document.getElementById('about-chevron');
+        const toggleBtn = document.querySelector('.about-toggle');
         
-        if (!aboutCard || !chevron) return;
+        if (!aboutCard || !toggleBtn) return;
         
         const isVisible = aboutCard.style.display !== 'none';
         
         if (isVisible) {
             aboutCard.style.display = 'none';
-            chevron.style.transform = 'rotate(0deg)';
+            toggleBtn.classList.remove('active');
         } else {
             aboutCard.style.display = 'block';
-            chevron.style.transform = 'rotate(180deg)';
+            toggleBtn.classList.add('active');
             
             // Smooth scroll to about card if needed
             setTimeout(() => {

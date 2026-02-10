@@ -49,7 +49,7 @@
         <div class="tooltip-content">
             <div class="tooltip-header">
                 <span class="tooltip-term" id="tooltipTerm">API</span>
-                <button class="tooltip-close" onclick="app.hideTooltip()"><i class="fas fa-times"></i></button>
+                <button class="tooltip-close magnetic-btn" onclick="app.hideTooltip()"><i class="fas fa-times"></i></button>
             </div>
             <p class="tooltip-definition" id="tooltipDefinition">Интерфейс для связи разных программ</p>
         </div>
@@ -69,10 +69,6 @@
         <!-- HOME SECTION -->
         <section id="home" class="section active" aria-label="Главная">
             <div class="hero">
-                <div class="hero-badge magnetic-btn">
-                    <span class="pulse-dot"></span>
-                    <span>Свободен для новых проектов</span>
-                </div>
                 <h1 class="hero-title">
                     Цифровые решения
                     <span class="title-accent">для бизнеса</span>
@@ -179,7 +175,7 @@
                     <div class="faq-item">
                         <button class="faq-question magnetic-btn" onclick="app.toggleFaq(this)">
                             <span>Сколько времени занимает разработка?</span>
-                            <i class="fas fa-chevron-down faq-chevron"></i>
+                            <div class="faq-icon"></div>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
@@ -190,7 +186,7 @@
                     <div class="faq-item">
                         <button class="faq-question magnetic-btn" onclick="app.toggleFaq(this)">
                             <span>Как происходит оплата?</span>
-                            <i class="fas fa-chevron-down faq-chevron"></i>
+                            <div class="faq-icon"></div>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
@@ -201,7 +197,7 @@
                     <div class="faq-item">
                         <button class="faq-question magnetic-btn" onclick="app.toggleFaq(this)">
                             <span>Будет ли работать на моем телефоне?</span>
-                            <i class="fas fa-chevron-down faq-chevron"></i>
+                            <div class="faq-icon"></div>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
@@ -212,7 +208,7 @@
                     <div class="faq-item">
                         <button class="faq-question magnetic-btn" onclick="app.toggleFaq(this)">
                             <span>А что если понадобятся доработки?</span>
-                            <i class="fas fa-chevron-down faq-chevron"></i>
+                            <div class="faq-icon"></div>
                         </button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
@@ -226,7 +222,7 @@
             <!-- About Toggle -->
             <button class="about-toggle magnetic-btn" onclick="app.toggleAbout()">
                 <span>О разработчике</span>
-                <i class="fas fa-chevron-down" id="about-chevron"></i>
+                <div class="toggle-icon"></div>
             </button>
 
             <div class="about-card" id="about-card" style="display: none;">
@@ -350,7 +346,7 @@
             </div>
         </section>
 
-        <!-- CALCULATOR SECTION — Conversion Focused -->
+        <!-- CALCULATOR SECTION -->
         <section id="calc" class="section" aria-label="Калькулятор">
             <header class="section-header">
                 <div class="step-indicator">
@@ -375,9 +371,7 @@
                             <h3>Telegram-бот</h3>
                             <span class="conversion-price">от 8 000 ₽</span>
                         </div>
-                        <div class="conversion-expand">
-                            <i class="fas fa-plus"></i>
-                        </div>
+                        <div class="conversion-expand"></div>
                     </div>
                     <div class="conversion-body">
                         <div class="conversion-content">
@@ -387,7 +381,7 @@
                             <ul class="conversion-features">
                                 <li><i class="fas fa-check"></i> Ответы на частые вопросы</li>
                                 <li><i class="fas fa-check"></i> Прием заказов и оплат</li>
-                                <li><i class="fas fa-check"></i> Интеграция с <span class="term-highlight" data-term="CRM" data-def="Система управления клиентами">CRM</span> и базами данных</li>
+                                <li><i class="fas fa-check"></i> Интеграция с <span class="term-highlight" data-term="CRM">CRM</span> и базами данных</li>
                                 <li><i class="fas fa-check"></i> Рассылки и напоминания</li>
                             </ul>
                             <div class="conversion-cta">
@@ -409,9 +403,7 @@
                             <h3>Mini App</h3>
                             <span class="conversion-price">от 25 000 ₽</span>
                         </div>
-                        <div class="conversion-expand">
-                            <i class="fas fa-plus"></i>
-                        </div>
+                        <div class="conversion-expand"></div>
                     </div>
                     <div class="conversion-body">
                         <div class="conversion-content">
@@ -443,9 +435,7 @@
                             <h3>Корпоративный сайт</h3>
                             <span class="conversion-price">от 45 000 ₽</span>
                         </div>
-                        <div class="conversion-expand">
-                            <i class="fas fa-plus"></i>
-                        </div>
+                        <div class="conversion-expand"></div>
                     </div>
                     <div class="conversion-body">
                         <div class="conversion-content">
@@ -477,9 +467,7 @@
                             <h3>Лендинг / Сайт-визитка</h3>
                             <span class="conversion-price">от 25 000 ₽</span>
                         </div>
-                        <div class="conversion-expand">
-                            <i class="fas fa-plus"></i>
-                        </div>
+                        <div class="conversion-expand"></div>
                     </div>
                     <div class="conversion-body">
                         <div class="conversion-content">
