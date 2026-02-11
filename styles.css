@@ -979,14 +979,9 @@ body {
 
 /* Когда открыто — плюс превращается в крест с поворотом */
 .faq-item.open .faq-icon {
-    background: var(--accent-blue);
-    color: white;
-    transform: rotate(45deg);
-}
-
-.faq-item.open .faq-icon::before,
-.faq-item.open .faq-icon::after {
-    background: white;
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
 }
 
 /* Эффект "разъезжания" соседних карточек */
